@@ -6,7 +6,9 @@ $$
     -D \frac{\partial}{\partial x} \left( (1-x^2) \frac{\partial T}{\partial x} \right) = -I(x) + Q S(x) a(x, x_s)
 $$
 
-in the intervals $[0, x_s]$ and $[x_s, 1]$.
+in the intervals $[0, x_s]$ and $[x_s, 1]$, with the intensity being approximated by
+
+$$I(x) = B_\text{out} T(x) + A_\text{out}.$$
 
 ## Finite difference operators
 
@@ -49,9 +51,9 @@ $$-D\left(\frac{1-x_N^2}{\Delta x} \frac{T_N-T_{N-1}}{\Delta x} - \frac{1-x_{N-1
 
 ## Boundary conditions
 
-We consider first the region $[0, x_s]$. The following also applies symmetrically to the region $[x_s, 1]$. At the ice cap $x_s$, we have $T=T_s=273.15 K$ and at the pole and equator, we Neumann boundary conditions $\frac{\partial T}{\partial x} = 0$. 
+We consider first the region $[0, x_s]$. The following also applies symmetrically to the region $[x_s, 1]$.
 
-These can be discretized as $T_0 = T_1$ and $T_N = T_{N-1}$. This simplifies the second equation to
+At the ice cap $x_s$, we have $T=T_s=273.15 K$ and at the pole and equator, we Neumann boundary conditions $\frac{\partial T}{\partial x} = 0$. This can be discretized as $T_0 = T_1$. This simplifies the second equation to
 
 $$-D\frac{1-x_1^2}{\Delta x} \frac{T_2-T_1}{\Delta x} = -I_0 + Q S_0 a_0$$
 
@@ -67,36 +69,37 @@ where
 $$
 \begin{aligned}
     \alpha_j &= - D \frac{1-x_{j-1/2}^2}{\Delta x^2}, \\
-    \beta_j &= D \frac{2 - x_{j+1/2}^2 - x_{j-1/2}^2}{\Delta x^2}, \\
+    \beta_j &= D \frac{2 - x_{j+1/2}^2 - x_{j-1/2}^2}{\Delta x^2} + B_\text{out} \\
     \gamma_j &= - D \frac{1-x_{j+1/2}^2}{\Delta x^2}, \\
-    f_j &= -I_j + Q S_j a_j.
+    f_j &= -A_\text{out} + Q S_j a_j.
 \end{aligned}
 $$
 
 At the equator, we have
 
-$$\beta_0 T_1 + \gamma_0 T_2 = f_0,$$
+$$\tilde\alpha_0 T_0 + \tilde\beta_0 T_1 + \tilde\gamma_0 T_2 = f_0,$$
 
 with $f_0$ as above and
 
 $$
 \begin{aligned}
-    \beta_1 &= D \frac{1-x_1^2}{\Delta x^2}, \\
-    \gamma_1 &= - D \frac{1-x_1^2}{\Delta x^2}.
+    \tilde\alpha_0 &= B_\text{out} \\
+    \tilde\beta_0 &= D \frac{1-x_1^2}{\Delta x^2}, \\
+    \tilde\gamma_0 &= - D \frac{1-x_1^2}{\Delta x^2}.
 \end{aligned}
 $$
 
 At the ice cap, we have
 
-$$\alpha_N T_{N-2} + \beta_N T_{N-1} = f_N,$$
+$$\hat\alpha_N T_{N-2} + \hat\beta_N T_{N-1} = \hat f_N,$$
 
 with
 
 $$
 \begin{aligned}
-    \alpha_N &= - D \frac{2-x_{N-1}^2}{\Delta x^2}, \\
-    \beta_N &= D \frac{2-x_s^2-x_{N-1}^2}{\Delta x^2}, \\
-    f_N &= D \frac{1-x_s^2}{\Delta x^2} T_s - I_N + Q S_N a_N.
+    \hat\alpha_N &= - D \frac{1-x_{N-1}^2}{\Delta x^2}, \\
+    \hat\beta_N &= D \frac{2-x_s^2-x_{N-1}^2}{\Delta x^2}, \\
+    \hat f_N &= \left(D \frac{1-x_s^2}{\Delta x^2} - B_\text{out}\right) T_s - A_\text{out} + Q S_N a_N.
 \end{aligned}
 $$
 
@@ -104,12 +107,12 @@ We can now write this system of equations as
 
 $$A \mathbf{T} = \mathbf{f},$$
 
-where $\mathbf{T} = [T_0, T_1, \ldots, T_N]^T$, $\mathbf{f} = [f_0, f_1, \ldots, f_N]^T$, and $A=\operatorname{tridiag}(\alpha, \beta, \gamma)$:
+where $\mathbf{T} = [T_0, T_1, \ldots, T_N]^T$, $\mathbf{f} = [f_0, f_1, \ldots, f_{N-1}, \hat f_N]^T$, and 
 
 $$A = \begin{bmatrix}
-    \beta_0 & \gamma_0 & 0 & 0 &\cdots & 0 & 0 & 0 \\
+    \tilde\alpha_0 & \tilde\beta_0 & \tilde\gamma_0 & 0 & 0 &\cdots & 0 & 0 \\
     \alpha_1 & \beta_1 & \gamma_1 & 0 & \cdots & 0 & 0 & 0 \\
     & & & &\ddots & & & \\
     0 & 0 & 0 & 0 & \cdots & \alpha_{N-1} & \beta_{N-1} & \gamma_{N-1} \\
-    0 & 0 & 0 & 0 & \cdots & 0 & \alpha_N & \beta_N
+    0 & 0 & 0 & 0 & \cdots & \hat\alpha_N & \hat\beta_N & 0
 \end{bmatrix}$$
