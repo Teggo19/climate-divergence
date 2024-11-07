@@ -13,29 +13,36 @@ The existence of such a point follows from the intermediate value theorem.
 
 We have that there exists a unique positive solution for $T_E, T_A>0$, as it satisfies the requirements of the lemma above. 
 
-Now setting these equal to zero yields the solutions:
+We then get temperatures of $TE$=311.03852315733315, $TA$=314.84704900014736. Meanwhile the sensitivities are:
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        Parameter & Temperature Earth & Temperature Atmosphere \\
+        \hline
+        $P0_S$ & 0.2248 & 0.2322 \\
+        $C_C$ & 0.0 & 0.0 \\
+        $r_{SM}$ & -70.2275 & -71.9515 \\
+        $r_{SC}$ & 0.0 & 0.0 \\
+        $r_{SE}$ & -53.0661 & -47.2257 \\
+        $a_{O3}$ & 12.2653 & 36.0128 \\
+        $a_{SC}$ & 0.0 & 0.0 \\
+        $a_{SW}$ & 3.9074 & 26.8914 \\
+        $r_{LC}$ & 0.0 & 0.0 \\
+        $a_{LC}$ & 0.0 & 0.0 \\
+        $a_{LW}$ & 126.0631 & 160.9563 \\
+        $\varepsilon_E$ & -21.4001 & -6.1369 \\
+        $\varepsilon_A$ & -32.6850 & -73.5326 \\
+        $f_A$ & 141.1135 & 135.1472 \\
+        $\alpha$ & 0.1977 & -0.0993 \\
+        $\beta$ & 0.1977 & -0.0993 \\
+        $\sigma$ & -1377521077.2269 & -1385146330.9210 \\
+        \hline
+    \end{tabular}
+    \caption{Sensitivity of the temperature as a function of each paramter}
+    \label{tab:symbols_values_new}
+\end{table}
 
 
-$TE$=311.03852315733315, $TA$=314.84704900014736
 
-
-
-And we get derivatives of 
-
-${'P0_S': [0.224792563454701, 0.23215123959099818], 
-'C_C': [0.0, 0.0], 
-'r_SM': [-70.22754334457137, -71.95149991365163], 
-'r_SC': [0.0, 0.0], 
-'r_SE': [-53.06610432628134, -47.22570884264974], 
-'a_O3': [12.265264698166183, 36.01282872469942], 
-'a_SC': [0.0, 0.0], 
-'a_SW': [3.907368838903192, 26.89138223445765], 
-'r_LC': [0.0, 0.0], 
-'a_LC': [0.0, 0.0], 
-'a_LW': [126.0630786100281, 160.9562568939087], 
-'eps_E': [-21.40007916587339, -6.1368710406633165],
-'eps_A': [-32.68502306177882, -73.53259344592684], 
-'f_A': [141.11349948405768, 135.14724760419364], 
-'alpha': [0.19768871829397583, -0.09933468002353586], 
-'beta': [0.1976887088200916, -0.09933465633882535], 
-'sigma': [-1377521077.2269304, -1385146330.9209988]}$
