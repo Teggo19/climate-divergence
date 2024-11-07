@@ -1,0 +1,34 @@
+
+
+I assume that the clouds reflect at the same height as the molecules and absorb at the same height. This changes the absorption and reflection coefficients of the atmosphere. As such substituting $r_{SM}$ by $1-(1-r_{SM})(1-C_Cr_{SC})$, $a_{SW}$ by $1-(1-a_{SW})(1-C_Ca_{SC})$, setting the long wave reflection term to $C_Cr_{LC}$, and changing the term $a_{LW}$ to $1-(1-a_{LW})(1-C_Ca_{LC})$.
+
+Using these values instead, we get temperatures of 317.06119977985446 on Earth and 319.49092073468364 in the atmosphere. Sensitivities are in the following table:
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        Parameter & Sensitivity Earth & Sensitivity Atmosphere \\
+        \hline
+        $P^0_S$ & 0.2299 & 0.2346 \\
+        $C_C$ & 8.1607 & 4.9990 \\
+        $r_{SM}$ & -73.0065 & -73.9421 \\
+        $r_{SC}$ & -50.3658 & -51.0112 \\
+        $r_{SE}$ & -40.6486 & -34.9559 \\
+        $a_{O3}$ & 22.2345 & 42.9681 \\
+        $a_{SC}$ & 0.0384 & 10.6841 \\
+        $a_{SW}$ & 0.0625 & 17.3871 \\
+        $r_{LC}$ & 34.0601 & 6.7975 \\
+        $a_{LC}$ & 15.7879 & 19.0876 \\
+        $a_{LW}$ & 80.9472 & 97.8654 \\
+        $\varepsilon_E$ & -14.1091 & -2.8158 \\
+        $\varepsilon_A$ & -39.5012 & -80.9488 \\
+        $f_A$ & 174.1345 & 163.5345 \\
+        $\alpha$ & 0.1502 & -0.0393 \\
+        $\beta$ & 0.1502 & -0.0393 \\
+        $\sigma$ & -1402611566.9115 & -1407475885.8376 \\
+        \hline
+    \end{tabular}
+    \caption{The sensitives of the temperatures of earth and the atmosphere as a function the different parameters}
+    \label{tab:symbols_values}
+\end{table}

@@ -1,0 +1,52 @@
+
+Before finding a solution we will first show that such a solution exists and is unique among those solutions with positive temperatures. 
+
+Let $f(a, b), g(a, b)$ be functions such that $f$ increases montonically as a function of $a$ and decreases as a function of $b$. Furthermore let $g$ decrease montonically as a function of $a$ and increase monotonically as a function of $b$. Also assume that $f(0, 0), g(0,0)>0$, $f(\infty, \infty),g(\infty, \infty)<0$, and that $f, g$ are continuous, and that $f(a, b)+g(a, b)$ decreases monotonically as a function of $a, b$. Then there exists a unique point $(x, y)$ such that $f(x, y)=g(x, y)=0$. 
+
+Proof
+
+\medskip
+
+Assume that there are two such points $(x_1, y_1)$ and $(x_2, y_2)$. Assume WLOG that $x_1 \leq x_2$. Then we either have that $y_1 \leq y_2$, in which case the points are equal or $f(x_1,y_1)+g(x_1, y_1)<f(x_2,y_2)+g(x_2, y_2)$, a contradiction. Otherwise $y_1> y_2$ in which case $f(x_1, y_1)>f(x_2, y_2)$, a contradiction. Hence there is at most one such point. 
+
+The existence of such a point follows from the intermediate value theorem. 
+
+\medskip 
+
+We have that there exists a unique positive solution for $T_E, T_A>0$, as it satisfies the requirements of the lemma above. 
+
+We then get temperatures of $T_E$=311.03852315733315, $T_A$=314.84704900014736. Meanwhile the sensitivities are:
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        Parameter & Temperature Earth & Temperature Atmosphere \\
+        \hline
+        $P^0_S$ & 0.2248 & 0.2322 \\
+        $C_C$ & 0.0 & 0.0 \\
+        $r_{SM}$ & -70.2275 & -71.9515 \\
+        $r_{SC}$ & 0.0 & 0.0 \\
+        $r_{SE}$ & -53.0661 & -47.2257 \\
+        $a_{O3}$ & 12.2653 & 36.0128 \\
+        $a_{SC}$ & 0.0 & 0.0 \\
+        $a_{SW}$ & 3.9074 & 26.8914 \\
+        $r_{LC}$ & 0.0 & 0.0 \\
+        $a_{LC}$ & 0.0 & 0.0 \\
+        $a_{LW}$ & 126.0631 & 160.9563 \\
+        $\varepsilon_E$ & -21.4001 & -6.1369 \\
+        $\varepsilon_A$ & -32.6850 & -73.5326 \\
+        $f_A$ & 141.1135 & 135.1472 \\
+        $\alpha$ & 0.1977 & -0.0993 \\
+        $\beta$ & 0.1977 & -0.0993 \\
+        $\sigma$ & -1377521077.2269 & -1385146330.9210 \\
+        \hline
+    \end{tabular}
+    \caption{Sensitivity of the temperature as a function of each paramter}
+    \label{tab:symbols_values_new}
+\end{table}
+
+
+
+
+
