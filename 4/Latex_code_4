@@ -10,7 +10,7 @@ Using these values instead, we get temperatures of 317.06119977985446 on Earth a
         \hline
         Parameter & Sensitivity Earth & Sensitivity Atmosphere \\
         \hline
-        $P0_S$ & 0.2299 & 0.2346 \\
+        $P^0_S$ & 0.2299 & 0.2346 \\
         $C_C$ & 8.1607 & 4.9990 \\
         $r_{SM}$ & -73.0065 & -73.9421 \\
         $r_{SC}$ & -50.3658 & -51.0112 \\
@@ -29,6 +29,6 @@ Using these values instead, we get temperatures of 317.06119977985446 on Earth a
         $\sigma$ & -1402611566.9115 & -1407475885.8376 \\
         \hline
     \end{tabular}
-    \caption{As you can see, changing $\sigma$ has big consequenses...}
+    \caption{The sensitives of the temperatures of earth and the atmosphere as a function the different parameters}
     \label{tab:symbols_values}
 \end{table}
