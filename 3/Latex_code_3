@@ -1,0 +1,41 @@
+
+Let $f(a, b), g(a, b)$ be functions such that $f$ increases montonically as a function of $a$ and decreases as a function of $b$. Furthermore let $g$ decrease montonically as a function of $a$ and increase monotonically as a function of $b$. Also assume that $f(0, 0), g(0,0)>0$, $f(\infty, \infty),g(\infty, \infty)<0$, and that $f, g$ are continuous, and that $f(a, b)+g(a, b)$ decreases monotonically as a function of $a, b$. Then there exists a unique point $(x, y)$ such that $f(x, y)=g(x, y)=0$. 
+
+Proof
+
+\medskip
+
+Assume that there are two such points $(x_1, y_1)$ and $(x_2, y_2)$. Assume WLOG that $x_1 \leq x_2$. Then we either have that $y_1 \leq y_2$, in which case the points are equal or $f(x_1,y_1)+g(x_1, y_1)<f(x_2,y_2)+g(x_2, y_2)$, a contradiction. Otherwise $y_1> y_2$ in which case $f(x_1, y_1)>f(x_2, y_2)$, a contradiction. Hence there is at most one such point. 
+
+The existence of such a point follows from the intermediate value theorem. 
+
+\medskip 
+
+We have that there exists a unique positive solution for $T_E, T_A>0$, as it satisfies the requirements of the lemma above. 
+
+Now setting these equal to zero yields the solutions:
+
+
+$TE$=311.03852315733315, $TA$=314.84704900014736
+
+
+
+And we get derivatives of 
+
+${'P0_S': [0.224792563454701, 0.23215123959099818], 
+'C_C': [0.0, 0.0], 
+'r_SM': [-70.22754334457137, -71.95149991365163], 
+'r_SC': [0.0, 0.0], 
+'r_SE': [-53.06610432628134, -47.22570884264974], 
+'a_O3': [12.265264698166183, 36.01282872469942], 
+'a_SC': [0.0, 0.0], 
+'a_SW': [3.907368838903192, 26.89138223445765], 
+'r_LC': [0.0, 0.0], 
+'a_LC': [0.0, 0.0], 
+'a_LW': [126.0630786100281, 160.9562568939087], 
+'eps_E': [-21.40007916587339, -6.1368710406633165],
+'eps_A': [-32.68502306177882, -73.53259344592684], 
+'f_A': [141.11349948405768, 135.14724760419364], 
+'alpha': [0.19768871829397583, -0.09933468002353586], 
+'beta': [0.1976887088200916, -0.09933465633882535], 
+'sigma': [-1377521077.2269304, -1385146330.9209988]}$
