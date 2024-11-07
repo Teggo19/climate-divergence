@@ -1,4 +1,6 @@
 
+Before finding a solution we will first show that such a solution exists and is unique among those solutions with positive temperatures. 
+
 Let $f(a, b), g(a, b)$ be functions such that $f$ increases montonically as a function of $a$ and decreases as a function of $b$. Furthermore let $g$ decrease montonically as a function of $a$ and increase monotonically as a function of $b$. Also assume that $f(0, 0), g(0,0)>0$, $f(\infty, \infty),g(\infty, \infty)<0$, and that $f, g$ are continuous, and that $f(a, b)+g(a, b)$ decreases monotonically as a function of $a, b$. Then there exists a unique point $(x, y)$ such that $f(x, y)=g(x, y)=0$. 
 
 Proof
@@ -13,7 +15,7 @@ The existence of such a point follows from the intermediate value theorem.
 
 We have that there exists a unique positive solution for $T_E, T_A>0$, as it satisfies the requirements of the lemma above. 
 
-We then get temperatures of $TE$=311.03852315733315, $TA$=314.84704900014736. Meanwhile the sensitivities are:
+We then get temperatures of $T_E$=311.03852315733315, $T_A$=314.84704900014736. Meanwhile the sensitivities are:
 
 \begin{table}[h!]
     \centering
@@ -21,7 +23,7 @@ We then get temperatures of $TE$=311.03852315733315, $TA$=314.84704900014736. Me
         \hline
         Parameter & Temperature Earth & Temperature Atmosphere \\
         \hline
-        $P0_S$ & 0.2248 & 0.2322 \\
+        $P^0_S$ & 0.2248 & 0.2322 \\
         $C_C$ & 0.0 & 0.0 \\
         $r_{SM}$ & -70.2275 & -71.9515 \\
         $r_{SC}$ & 0.0 & 0.0 \\
@@ -43,6 +45,8 @@ We then get temperatures of $TE$=311.03852315733315, $TA$=314.84704900014736. Me
     \caption{Sensitivity of the temperature as a function of each paramter}
     \label{tab:symbols_values_new}
 \end{table}
+
+
 
 
 
