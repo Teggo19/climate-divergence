@@ -1,0 +1,45 @@
+
+Denote the temperature of the atmospere by $T_A$, and the temperature of the earth by $T_E$. 
+
+Denote the radition arriving towards earth by $l_E$, towards the atmosphere from the sun by $l_{A, S}$, from earth by $l_{A, E}$ and the radition away from earth and the atmosphere by $l_{S}$. We then have that:
+
+\[l_{A, S}=0\]
+
+\[l_{S}=(1-f_A) \varepsilon_A \sigma T^4_A+ (1-a_{LW})l_{A, E} \]
+
+\[l_{E}=f_A \varepsilon_A \sigma T^4_A + r_{LA}l_{A, E}=f_A \varepsilon_A \sigma T^4_A+r_{LA}(\varepsilon_E \sigma T^4_E +r_{LE}l_E) \]
+
+\[l_{A, E}= \varepsilon_E \sigma T^4_E +r_{LE}l_E=\varepsilon_E \sigma T^4_E+r_{LE}(f_A \varepsilon_A \sigma T^4_A + r_{LA}l_{A, E})\]
+
+\[s_{A, S}=P_S^0\]
+
+\[s_{S}= (1-a_{03})(1-a_{SW})(1-r_{SM})s_{A, E}+(1-a_{O3})r_{SM}P_S^0 \]
+
+\[s_{E}= (1-r_{SM})(1-a_{03})(1-a_{SW})s_{A, S} +r_{SA}s_{A, E}= (1-r_{SM})(1-a_{03})(1-a_{SW})s_{A, S} +r_{SA}r_{SE}s_E\]
+
+\[s_{A, E}= s_{E}r_{SE}=r_{SE}( (1-r_{SM})(1-a_{03})(1-a_{SW})s_{A, S} +r_{SA}s_{A, E})\]
+
+\[H_{EA}=(\alpha+\beta)(T_E-T_A)\]
+
+We assume that the ozon layer is above the molecular scattering/reflection. Thus we get absorption on the way from the sun and to the sun, but not when rays are reflected back to earth. Solving these equations yield that: 
+
+\[l_E=\frac{f_A\varepsilon_A \sigma T_A^4+r_{LA}\varepsilon_E \sigma T_E^4}{1-r_{LA}r_{LE}}\]
+
+\[l_A=l_{A, E}+l_{A, S}=\frac{\varepsilon_E \sigma T^{4}_E+r_{LE}f_A\varepsilon_A \sigma T_A^4 }{1-r_{LA}r_{LE}}\]
+
+\[s_E=\frac{ (1-r_{SM})(1-a_{03})(1-a_{SW}) P_S^0}{1-r_{SA}r_{SE}}\]
+
+\[s_A=s_{A,E}+s_{A, S} =\frac{r_{SE}(1-a_{03})(1-a_{SW}) (1-r_{SM}) P_S^0}{1-r_{SA}r_{SE}}+P_S^0\]
+
+We have that the absorption coefficient of earth is $\varepsilon_E$ for long waves, and $1-r_{SE}$ for short waves. The energy absorbed is the energy incoming times the absorption coefficient. Thus we get that the net radiation for earth becomes:
+
+\[N_E=\varepsilon_E\frac{f_A\varepsilon_A \sigma T_A^4+r_{LA}\varepsilon_E \sigma T_E^4}{1-r_{LA}r_{LE}}+(1-r_{S,E})\frac{(1-a_{03})(1-a_{SW}) (1-r_{SM}) P_S^0}{1-r_{SA}r_{SE}}-(\alpha+\beta)(T_E-T_A)-\varepsilon_E\sigma T_E^4\]
+
+For the atmosphere, we similarly get that the absorption of long waves is equal to $(1-r_{LA})a_{LW}$, while the energy absorbed of short waves from the sun is equal to the incoming radiation times $a_{O3}+a_{SW}(1-a_{O3})(1-r_{SM})$, while the radiation coming from earth consisting of short waves has absorbition coefficient $(a_{SW}+a_{O3}(1-a_{SW}))(1-r_{SM})$
+
+
+\[N_A=(1-r_{LA})a_{LW}\frac{\varepsilon_E \sigma T^{4}_E+r_{LE}f_A\varepsilon_A \sigma T_A^4 }{1-r_{LA}r_{LE}}\]
+
+\[+(a_{SW}+a_{O3}(1-a_{SW}))(1-r_{SM})\frac{r_{SE}(1-a_{03})(1-a_{SW}) (1-r_{SM}) P_S^0}{1-r_{SA}r_{SE}}\]
+
+\[+(a_{O3}+a_{SW}(1-a_{O3})(1-r_{SM}))P_S^0+(\alpha+\beta)(T_E-T_A)-\varepsilon_A\sigma T_A^4\]
