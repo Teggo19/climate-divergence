@@ -93,11 +93,11 @@ $$A = \begin{bmatrix}
 and $f_0 = \frac{\partial T}{\partial x}=0$ and $f_N = T_s$ enforce the boundary conditions.
 
 
-Above the ice cap, $[x_s, 1]$, due to symmetry, we just flip theindices of $\mathbf{f}$ and $A$:
+In the domain $[x_s, 1]$ above the ice cap, we have almost the same system of equations, but the boundary conditions are now swapped:
 
 $$
 \begin{aligned}
-    f_j &\gets f_{N+1-j} \\
-    A_{j,k} &\gets A_{N+1-j, N+1-k}
+    (f_0, f_N) &\gets (f_N, f_0) \\
+    (A_{0,j}, A_{N,j}) &\gets (A_{N,N-j}, A_{0,N-j})
 \end{aligned}
 $$

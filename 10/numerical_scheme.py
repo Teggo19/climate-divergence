@@ -50,7 +50,9 @@ def enforce_boundary_condition_south_rhs(f, T_s):
     f[-1] = T_s # Dirichlet condition
 
 def compute_north_matrix(N, dx, x, D, B_out):
-    return np.flip(compute_south_matrix(N, dx, x, D, B_out))
+    A = compute_south_matrix(N, dx, x, D, B_out)
+    A[[0,-1]] = np.flip(A[[0,-1]]) # flip boundary conditions
+    return A
 
 
 def compute_south_rhs(N, x, A_out, Q, S, a, T_s):
@@ -63,7 +65,9 @@ def compute_south_rhs(N, x, A_out, Q, S, a, T_s):
     return rhs
 
 def compute_north_rhs(N, x, A_out, Q, S, a, T_s):
-    return np.flip(compute_south_rhs(N, x, A_out, Q, S, a, T_s))
+    rhs = compute_south_rhs(N, x, A_out, Q, S, a, T_s)
+    rhs[[0,-1]] = rhs[[-1,0]] # flip boundary conditions
+    return rhs
 
 
 def S(x, S_2=-0.477):
