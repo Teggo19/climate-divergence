@@ -1,0 +1,20 @@
+
+
+We have that: 
+
+\[C_a \frac{\partial T}{\partial t}=D\frac{\partial }{\partial x}((1-x^2)\frac{\partial T}{\partial x})+q=\]
+
+\[D\frac{\partial }{\partial x}((1-x^2)\frac{\partial T}{\partial x})-I(x)+QS(x)a(x, x_s) \]
+
+Now let $T_e(x)$ be the equilibrium solution, and let $\delta T(t, x)$ be a small perturbation. Furthermore let $T(t, x)=T_e(x)+\delta T(t, x)$. When considering the right side of the equation above, we get that: 
+
+\[D\frac{\partial }{\partial x}((1-x^2)\frac{\partial T(t, x)}{\partial x})-I(x)+QS(x)a(x, x_s)= D\frac{\partial }{\partial x}((1-x^2)\frac{\partial \delta T(t, x)}{\partial x})-B_{out} \delta T(t, x)\]
+
+
+Hence we get the equation:
+
+\[C_a\frac{\partial \delta T(x, t)}{\partial t}=D\frac{\partial }{\partial x}((1-x^2)\frac{\partial \delta T(t, x)}{\partial x})-B_{out} \delta T(t, x)\]
+
+\[\frac{\partial \delta T(x, t)}{\partial t}=\frac{D}{C_a}\frac{\partial }{\partial x}((1-x^2)\frac{\partial \delta T(t, x)}{\partial x})-\frac{B_{out}}{C_a} \delta T(t, x)\]
+
+Here the operator $\mathcal{M}$ is then $\frac{D}{C_a}\frac{\partial }{\partial x}((1-x^2)\frac{\partial }{\partial x})-\frac{B_{out}}{C_a} $.
