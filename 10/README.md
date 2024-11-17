@@ -15,22 +15,33 @@ $$I(x) = B_\text{out} T(x) + A_\text{out}.$$
 Define the central difference operator
 
 $$
-    \delta_x f_j = \frac{f_{j+1/2} - f_{j-1/2}}{\Delta x},
-$$
-
-the forward difference operator
-
-$$
-    \Delta_{x} f_j = \frac{f_{j+1} - f_j}{\Delta x},
+    \delta_x f_j = \frac{f_{j+1/2} - f_{j-1/2}}{\Delta x}
 $$
 
 and the backward difference operator
 
 $$
-    \nabla_{x} f_j = \frac{f_j - f_{j-1}}{\Delta x}.
+    \Delta_x f_j = \frac{f_j - f_{j-1}}{\Delta x}.
 $$
 
-## Discretization
+## Boundary conditions
+
+At the ice cap $x_s$, we have $T=T_s=0^\circ C$ and at equator, we use Neumann boundary conditions $\frac{\partial T}{\partial x} = 0$. This can be discretized as $T_0 = T_1$ in the first domain and $T_N = T_{N-1}$ in the second domain. At the pole, we do not have a boundary condition, so we need to an explicit integrator to determine the temperature there, say backward difference $\Delta_x$. This gives
+
+$$\tilde\alpha_N T_{N-2} + \tilde\beta_N T_{N-1} + \tilde\gamma T_N = f_N,$$
+
+where 
+
+$$
+\begin{aligned}
+    \tilde\alpha_N &= D \frac{1-x_{N-1}^2}{\Delta x^2}, \\
+    \tilde\beta_N &= - D \frac{2 - x_N^2 - x_{N-1}^2}{\Delta x^2} \\
+    \tilde\gamma_N &= D \frac{1-x_N^2}{\Delta x^2} + B_{out}, \\
+    f_N &= -A_\text{out} + Q S_N a_N.
+\end{aligned}
+$$
+
+## Interior discretization
 
 We can now use the finite difference operators to discretize the equation in the interior:
 
@@ -40,27 +51,11 @@ This results in the equations
 
 $$-D \left(\frac{1-x_{j+1/2}^2}{\Delta x} \frac{T_{j+1}-T_j}{\Delta x} - \frac{1-x_{j-1/2}^2}{\Delta x} \frac{T_j-T_{j-1}}{\Delta x}\right) = -I_j + Q S_j a_j,$$
 
-for $j=1, 2, \ldots, N-1$. On the boundaries, we could use the forward and backward difference operators and implicitly embed the boundary conditions in the equations. However, it is easier to just explicitly enforce the boundary conditions.
-
-
-## Boundary conditions
-
-At the ice cap $x_s$, we have $T=T_s=0^\circ C$ and at the pole and equator, we use Neumann boundary conditions $\frac{\partial T}{\partial x} = 0$. This can be discretized as $T_0 = T_1$ in the first domain and $T_N = T_{N-1}$ in the second domain.
-
-### Higher order boundary conditions
-
-The central difference operator is of second dergree, but that helps little, when the boundary conditions are of first degree. A second order approximation of the Neumann boundary conditions would be
-
-$$3T_0 - 4T_1 + T_2 = 0$$
-
-and
-
-$$3T_N - 4T_{N-1} + T_{N-2} = 0.$$
-
+for $j=1, 2, \ldots, N-1$.
 
 ## Matrix Reformulation
 
-We first consider the domain $[0,x_s]$. In the interior, the equations can be rewritten as
+The equations above can be rewritten as
 
 $$\alpha_j T_{j-1} + \beta_j T_j + \gamma_j T_{j+1} = f_j,$$
 
@@ -93,11 +88,15 @@ $$A = \begin{bmatrix}
 and $f_0 = \frac{\partial T}{\partial x}=0$ and $f_N = T_s$ enforce the boundary conditions.
 
 
-In the domain $[x_s, 1]$ above the ice cap, we have almost the same system of equations, but the boundary conditions are now swapped:
+In the domain $[x_s, 1]$ above the ice cap, we have almost the same system of equations
 
-$$
-\begin{aligned}
-    (f_0, f_N) &\gets (f_N, f_0) \\
-    (A_{0,j}, A_{N,j}) &\gets (A_{N,N-j}, A_{0,N-j})
-\end{aligned}
-$$
+$$A = \begin{bmatrix}
+    1 & 0 & 0 & 0 &\cdots & 0 & 0 & 0 & 0 \\
+    \alpha_1 & \beta_1 & \gamma_1 & 0 & \cdots & 0 & 0 & 0 & 0 \\
+    0 & \alpha_2 & \beta_2 & \gamma_2 & \cdots & 0 & 0 & 0 & 0 \\
+    & & & &\ddots & & & \\
+    0 & 0 & 0 & 0 & \cdots & 0 & \alpha_{N-1} & \beta_{N-1} & \gamma_{N-1} \\
+    0 & 0 & 0 & 0 & \cdots & 0 & \tilde\alpha_N & \tilde\beta_N & \tilde\gamma_N
+\end{bmatrix}$$
+
+with $f_0 = T_s$ and $f_N = -A_\text{out} + Q S_N a_N$.

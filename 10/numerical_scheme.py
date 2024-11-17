@@ -6,67 +6,81 @@ def compute_diagonal(N, dx, x, D, B_out):
     """
     compute the diagonal of the matrix for the numerical scheme.
     """
-    diag = np.zeros(N+1)
-    diag[1:-1] = D * (2 - (x[1:-1]-0.5*dx)**2 - (x[1:-1]+0.5*dx)**2) / dx**2 + B_out
-    return diag
+    return D * (2 - (x-0.5*dx)**2 - (x+0.5*dx)**2) / dx**2 + B_out
 
 
 def compute_lower(N, dx, x, D):
     """
     compute the lower diagonal of the matrix for the numerical scheme.
     """
-    lower = np.zeros(N)
-    lower[:-1] = -D * (1 - (x[1:-1]-0.5*dx)**2) / dx**2
-    return lower
+    return -D * (1 - (x[1:]-0.5*dx)**2) / dx**2
 
 
 def compute_upper(N, dx, x, D):
     """
     compute the upper diagonal of the matrix for the numerical scheme.
     """
-    upper = np.zeros(N)
-    upper[1:] = -D * (1 - (x[1:-1]+0.5*dx)**2) / dx**2
-    return upper
+    return -D * (1 - (x[:-1]+0.5*dx)**2) / dx**2
+
+
+def compute_central_difference_matrix(N, dx, x, D, B_out):
+    lower = compute_lower(N, dx, x, D)
+    upper = compute_upper(N, dx, x, D)
+    diag = compute_diagonal(N, dx, x, D, B_out)
+    return np.diag(diag) + np.diag(lower, -1) + np.diag(upper, 1)
 
 
 def compute_south_matrix(N, dx, x, D, B_out):
     """
     compute a matrix for the numerical scheme.
     """
-    lower = compute_lower(N, dx, x, D)
-    upper = compute_upper(N, dx, x, D)
-    diag = compute_diagonal(N, dx, x, D, B_out)
-    A = np.diag(diag) + np.diag(lower, -1) + np.diag(upper, 1)
+    A = compute_central_difference_matrix(N, dx, x, D, B_out)
     enforce_boundary_condition_south_matrix(A)
     return A
 
 def enforce_boundary_condition_south_matrix(A):
     A[0, 0:3] = [3, -4, 1] # Neumann condition, second order
     # A[0, 0:2] = [1, -1] # Neumann condition, first order
-    A[-1,-1] = 1            # Dirichlet condition
+    A[-1, -3:] = [0, 0, 1] # Dirichlet condition
 
 def enforce_boundary_condition_south_rhs(f, T_s):
     f[0] = 0  # Neumann condition
     f[-1] = T_s # Dirichlet condition
 
+def enforce_boundary_condition_north_rhs(f, T_s):
+    f[0] = T_s  #Dirichlet condition
+
 def compute_north_matrix(N, dx, x, D, B_out):
-    A = compute_south_matrix(N, dx, x, D, B_out)
-    A[[0,-1]] = np.flip(A[[0,-1]]) # flip boundary conditions
+    A = compute_central_difference_matrix(N, dx, x, D, B_out)
+    enforce_boundary_condition_north_matrix(A, dx, x, D, B_out)
     return A
+
+
+def enforce_boundary_condition_north_matrix(A, dx, x, D, B_out):
+    A[0,0:3] = [1, 0, 0]  # Dirichlet condition
+    # Backward difference:
+    A[-1, -3] = D*(1-x[-2]**2)/dx**2
+    A[-1, -2] = -D*(2 - x[-1]**2 - x[-2]**2)/dx**2
+    A[-1, -1] = D*(1-x[-1]**2)/dx**2 + B_out
+
+
+def compute_rhs(N, x, A_out, Q, S, a, T_s):
+    rhs = np.empty(N+1)
+    rhs[:] = -A_out + Q * S(x) * a
+    return rhs
 
 
 def compute_south_rhs(N, x, A_out, Q, S, a, T_s):
     """
     compute the right-hand side of the numerical scheme.
     """
-    rhs = np.empty(N+1)
-    rhs[1:-1] = -A_out + Q * S(x[1:-1]) * a
+    rhs = compute_rhs(N, x, A_out, Q, S, a, T_s)
     enforce_boundary_condition_south_rhs(rhs, T_s)
     return rhs
 
 def compute_north_rhs(N, x, A_out, Q, S, a, T_s):
     rhs = compute_south_rhs(N, x, A_out, Q, S, a, T_s)
-    rhs[[0,-1]] = rhs[[-1,0]] # flip boundary conditions
+    enforce_boundary_condition_north_rhs(rhs, T_s)
     return rhs
 
 
