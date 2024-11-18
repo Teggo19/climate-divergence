@@ -26,10 +26,8 @@ alpha = [alpha_0, alpha_1]
 
 for i in range(N):
     m = len(alpha)
-    if m%2 == 0:
-        alpha.append(0)
-    else:
-        alpha.append(alpha[-2]*(B+D*(m-1)*(m-2))/(D*(m-1)*m))
+    alpha.append(alpha[-2]*(B+D*(m-1)*(m-2))/(D*(m-1)*m))
+    
 print(alpha[:10])
 def z(u):
     return sum([b*(1-u)**i for i, b in enumerate(beta)])
