@@ -20,8 +20,8 @@ for i in range(N):
     m = len(beta)
     beta.append(beta[-1]*(B+m*(m-1)*D)/(2*(m)**2*D))
 
-alpha_0 = 0
-alpha_1 = 1
+alpha_0 = 1
+alpha_1 = 0
 alpha = [alpha_0, alpha_1]
 
 for i in range(N):
@@ -32,13 +32,13 @@ for i in range(N):
         alpha.append(alpha[-2]*(B+D*(m-1)*(m-2))/(D*(m-1)*m))
 print(alpha[:10])
 def z(u):
-    return sum([b*u**i for i, b in enumerate(beta)])
+    return sum([b*(1-u)**i for i, b in enumerate(beta)])
 
 def y(x):
     return sum([a*(x)**i for i, a in enumerate(alpha)])
 
 def z_prime(u):
-    return sum([(i+1)*b*u**(i) for i, b in enumerate(beta[1:])])
+    return sum([(-1)**(i+1)*(i+1)*b*(1-u)**(i) for i, b in enumerate(beta[1:])])
 
 def y_prime(x):
     return sum([(i+1)*a*(x)**(i) for i, a in enumerate(alpha[1:])])
