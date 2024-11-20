@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 a_l = 0.68
 a_u = 0.38
 S_2 = -0.477
-D = 0.3
+D = 0.8
 A = 201.4
 B = 1.45
 
@@ -27,7 +27,7 @@ alpha = [alpha_0, alpha_1]
 for i in range(N):
     m = len(alpha)
     alpha.append(alpha[-2]*(B+D*(m-1)*(m-2))/(D*(m-1)*m))
-    
+
 print(alpha[:10])
 def z(u):
     return sum([b*(1-u)**i for i, b in enumerate(beta)])
@@ -36,28 +36,33 @@ def y(x):
     return sum([a*(x)**i for i, a in enumerate(alpha)])
 
 def z_prime(u):
-    return sum([(-1)**(i+1)*(i+1)*b*(1-u)**(i) for i, b in enumerate(beta[1:])])
+    return sum([(-1)*(i+1)*b*(1-u)**(i) for i, b in enumerate(beta[1:])])
 
 def y_prime(x):
     return sum([(i+1)*a*(x)**(i) for i, a in enumerate(alpha[1:])])
 
 
 def Q(x_s):
-    numerator = A/B*(y_prime(x_s)/y(x_s) - z_prime(x_s)/z(x_s))
-    den_1 = 3*S_2*x_s**2/(6*D+B)*(a_l - a_u)
+    numerator = - A/B*(y_prime(x_s)/y(x_s) - z_prime(x_s)/z(x_s))
+    den_1 = 3*S_2*x_s/(6*D+B)*(a_l - a_u)
     den_2 = - y_prime(x_s)/y(x_s)*(a_l/B + a_l*S_2/(6*D+B)*0.5*(3*x_s**2 -1))
     den_3 = z_prime(x_s)/z(x_s)*(a_u/B + a_u*S_2/(6*D+B)*0.5*(3*x_s**2 -1))
     return numerator/(den_1 + den_2 + den_3)
-def a(x):
-    if x>x_s:
-        return 0.68
-    else:
-        return 0.38
 
 
-def T(x):
-    return Q(x_s)*a(x) - A + Q(x_s)*a(x)*S_2/(6*D+B)*0.5*(3*x**2 -1) + 3*Q(x_s)*a(x)*S_2/(6*D+B)*sum([b*(1-x)**i for i, b in enumerate(beta)])
-
+def Q_gpt(x_s):
+    numerator = -2 * A * (B + 6 * D) * (y(x_s) * z_prime(x_s) - y_prime(x_s) * z(x_s))
+    denominator = (3 * B * y_prime(x_s) * z(x_s) * S_2 * a_l * x_s**2 
+                - B * y_prime(x_s) * z(x_s) * S_2 * a_l 
+                + 2 * B * y_prime(x_s) * z(x_s) * a_l 
+                - 6 * B * z(x_s) * y(x_s) * S_2 * a_l * x_s**2 
+                + 6 * B * z(x_s) * y(x_s) * S_2 * x_s**2 * a_u 
+                - 3 * B * y(x_s) * z_prime(x_s) * S_2 * x_s**2 * a_u 
+                + B * y(x_s) * z_prime(x_s) * S_2 * a_u 
+                - 2 * B * y(x_s) * z_prime(x_s) * a_u 
+                + 12 * y_prime(x_s) * z(x_s) * D * a_l 
+                - 12 * y(x_s) * z_prime(x_s) * D * a_u)
+    return numerator/denominator
 Q_real = 1360/4
 
 x = np.linspace(0, 1, 100)
@@ -69,6 +74,8 @@ print(Q_real)
 #print(Q(x[np.where(np.array(Q_arr) > Q_real)[0][0]]))
 #print(Q_arr[37])
 #print(Q_arr[38])
-plt.plot(x, Q_arr)
+plt.plot(x, Q_arr, label="trygve")
+plt.plot(x, Q_gpt(x), label="gpt")
+plt.legend()
 
 plt.show()
