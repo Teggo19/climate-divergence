@@ -4,9 +4,14 @@ import matplotlib.pyplot as plt
 a_l = 0.68
 a_u = 0.38
 S_2 = -0.477
-D = 0.8
+D = 0.1
 A = 201.4
 B = 1.45
+
+a_l = (a_l + a_u)/2
+a_u = a_l
+
+T_s = -20
 
 x_s = 0.9
 
@@ -28,7 +33,6 @@ for i in range(N):
     m = len(alpha)
     alpha.append(alpha[-2]*(B+D*(m-1)*(m-2))/(D*(m-1)*m))
 
-print(alpha[:10])
 def z(u):
     return sum([b*(1-u)**i for i, b in enumerate(beta)])
 
@@ -43,7 +47,7 @@ def y_prime(x):
 
 
 def Q(x_s):
-    numerator = A/B*(z_prime(x_s)/z(x_s) - y_prime(x_s)/y(x_s))
+    numerator = (A/B + T_s)*(z_prime(x_s)/z(x_s) - y_prime(x_s)/y(x_s))
     den_1 = 3*S_2*x_s/(6*D+B)*(a_l - a_u)
     den_2 = - y_prime(x_s)/y(x_s)*(a_l/B + a_l*S_2/(6*D+B)*0.5*(3*x_s**2 -1))
     den_3 = z_prime(x_s)/z(x_s)*(a_u/B + a_u*S_2/(6*D+B)*0.5*(3*x_s**2 -1))
@@ -56,11 +60,12 @@ Q_arr = [Q(xi) for xi in x]
 
 #print(np.where(np.array(Q_arr) > Q_real))
 print(Q_real)
-#print(x[np.where(np.array(Q_arr) > Q_real)[0][0]])
-#print(Q(x[np.where(np.array(Q_arr) > Q_real)[0][0]]))
+print(x[np.where(np.array(Q_arr) > Q_real)[0][0]])
+print(Q(x[np.where(np.array(Q_arr) > Q_real)[0][0]]))
 #print(Q_arr[37])
 #print(Q_arr[38])
 plt.plot(x, Q_arr, label="trygve")
+plt.axhline(y=Q_real, color='r', linestyle='-', label="real")
 plt.legend()
 
 plt.show()
