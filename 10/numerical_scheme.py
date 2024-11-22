@@ -2,6 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as anim
 
+from trygve import T as T_analytic
+
 def compute_diagonal(N, dx, x, D, B_out):
     """
     compute the diagonal of the matrix for the numerical scheme.
@@ -125,6 +127,9 @@ def main():
     line_north, = ax.plot(x_north, T_north, label='North')
     ice_line = ax.axvline(x_s, color='black', linestyle='--', label='Ice edge')
     zero_line = ax.axhline(0, color='black', linestyle='--')
+
+    ax.plot(x_south, [T_analytic(x) for x in x_south])
+    ax.plot(x_north, [T_analytic(x) for x in x_north])
     
     # ax.set_xlabel('$\\varphi/\\text{rad}$')
     ax.set_xlabel('$x$')
