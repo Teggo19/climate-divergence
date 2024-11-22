@@ -55,8 +55,10 @@ def a(x):
 def T_p(x):
     return (Q*a(x) - A)/B + (Q*a(x)*S_2)/(6*D + B)*0.5*(3*x**2 - 1)
 
-C = (T_s- T_p(x_s))/y(x_s)
-E = (T_s - T_p(x_s))/z(x_s)
+delta = 1e-5
+
+C = (T_s - T_p(x_s - delta))/y(x_s)
+E = (T_s - T_p(x_s + delta))/z(x_s)
 
 def T(x):
     if x <= x_s:
@@ -64,7 +66,8 @@ def T(x):
     else:
         return T_p(x) + E*z(x)
 
-x = np.linspace(0, 1, 100)
+
+x = np.linspace(0, 0.6, 100)
 T_arr = [T(xi) for xi in x]
 y_arr = [y(xi) for xi in x]
 T_p_arr = [T_p(xi) for xi in x]
