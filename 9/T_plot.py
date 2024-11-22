@@ -4,18 +4,16 @@ import matplotlib.pyplot as plt
 a_l = 0.68
 a_u = 0.38
 S_2 = -0.477
-D = 2
+D = 1e-2
 A = 201.4
 B = 1.45
 
 Q = 340
 
-a_l = (a_l + a_u)/2
-a_u = a_l
 
-T_s = -20
+T_s = 0
 
-x_s = 0.33
+x_s = 0.41
 
 beta_0 = 1
 beta_1 = B/(2*D)
@@ -34,6 +32,7 @@ alpha = [alpha_0, alpha_1]
 for i in range(N):
     m = len(alpha)
     alpha.append(alpha[-2]*(B+D*(m-1)*(m-2))/(D*(m-1)*m))
+print(alpha[:20])
 
 def z(u):
     return sum([b*(1-u)**i for i, b in enumerate(beta)])
@@ -50,8 +49,6 @@ def y_prime(x):
 def a(x):
     if x < x_s:
         return a_l
-    elif x == x_s:
-        return (a_l + a_u)/2
     else:
         return a_u
     
@@ -62,12 +59,10 @@ C = (T_s- T_p(x_s))/y(x_s)
 E = (T_s - T_p(x_s))/z(x_s)
 
 def T(x):
-    if x < x_s:
+    if x <= x_s:
         return T_p(x) + C*y(x)
     else:
         return T_p(x) + E*z(x)
-
-print(x_s)
 
 x = np.linspace(0, 1, 100)
 T_arr = [T(xi) for xi in x]

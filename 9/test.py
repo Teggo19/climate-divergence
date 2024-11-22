@@ -4,15 +4,13 @@ import matplotlib.pyplot as plt
 a_l = 0.68
 a_u = 0.38
 S_2 = -0.477
-D = 2
+D = 1e-2
 A = 201.4
 B = 1.45
 
-a_l = (a_l + a_u)/2
-a_u = a_l
 a_m = (a_l + a_u)/2
 
-T_s = -20
+T_s = 0
 
 x_s = 0.9
 
@@ -59,7 +57,7 @@ def Q_new(x_s):
 
 Q_real = 1360/4
 
-x = np.linspace(0, 1, 100)
+x = np.linspace(0.2, 1, 1000)
 Q_arr = [Q(xi) for xi in x]
 
 #print(np.where(np.array(Q_arr) > Q_real))
@@ -68,7 +66,8 @@ print(x[np.where(np.array(Q_arr) > Q_real)[0][0]])
 print(Q(x[np.where(np.array(Q_arr) > Q_real)[0][0]-1]))
 #print(Q_arr[37])
 #print(Q_arr[38])
-plt.plot(x, [Q_new(xi) for xi in x], label="Q(x_s)")
+plt.plot(x, Q_arr, label="old")
+# plt.plot(x, [Q_new(xi) for xi in x], label="Q(x_s)")
 plt.axhline(y=Q_real, color='r', linestyle='--', label="340 W/m^2")
 plt.axvline(x=x[np.where(np.array(Q_arr) > Q_real)[0][0]], color='g', linestyle='--', label=f"x_s = 0.95")
 plt.legend()
