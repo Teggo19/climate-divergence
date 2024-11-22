@@ -4,12 +4,13 @@ import matplotlib.pyplot as plt
 a_l = 0.68
 a_u = 0.38
 S_2 = -0.477
-D = 0.1
+D = 2
 A = 201.4
 B = 1.45
 
 a_l = (a_l + a_u)/2
 a_u = a_l
+a_m = (a_l + a_u)/2
 
 T_s = -20
 
@@ -53,6 +54,9 @@ def Q(x_s):
     den_3 = z_prime(x_s)/z(x_s)*(a_u/B + a_u*S_2/(6*D+B)*0.5*(3*x_s**2 -1))
     return numerator/(den_1 + den_2 + den_3)
 
+def Q_new(x_s):
+    return (T_s + A/B)/(a_m/B + a_m*S_2/(6*D+B)*0.5*(3*x_s**2 -1))
+
 Q_real = 1360/4
 
 x = np.linspace(0, 1, 100)
@@ -61,11 +65,15 @@ Q_arr = [Q(xi) for xi in x]
 #print(np.where(np.array(Q_arr) > Q_real))
 print(Q_real)
 print(x[np.where(np.array(Q_arr) > Q_real)[0][0]])
-print(Q(x[np.where(np.array(Q_arr) > Q_real)[0][0]]))
+print(Q(x[np.where(np.array(Q_arr) > Q_real)[0][0]-1]))
 #print(Q_arr[37])
 #print(Q_arr[38])
-plt.plot(x, Q_arr, label="trygve")
-plt.axhline(y=Q_real, color='r', linestyle='-', label="real")
+plt.plot(x, [Q_new(xi) for xi in x], label="Q(x_s)")
+plt.axhline(y=Q_real, color='r', linestyle='--', label="340 W/m^2")
+plt.axvline(x=x[np.where(np.array(Q_arr) > Q_real)[0][0]], color='g', linestyle='--', label=f"x_s = 0.95")
 plt.legend()
-
+plt.xlabel("x_s")
+plt.ylabel("Q (W/m^2)")
+# plt.savefig("Q_plot.png", dpi=300)
 plt.show()
+
