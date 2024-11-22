@@ -67,7 +67,7 @@ def T(x):
         return T_p(x) + E*z(x)
 
 
-x = np.linspace(0, 0.6, 100)
+x = np.linspace(0, 1, 300)
 T_arr = [T(xi) for xi in x]
 y_arr = [y(xi) for xi in x]
 T_p_arr = [T_p(xi) for xi in x]

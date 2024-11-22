@@ -57,7 +57,7 @@ def Q_new(x_s):
 
 Q_real = 1360/4
 
-x = np.linspace(0.2, 1, 1000)
+x = np.linspace(0.1, 0.8, 1000)
 Q_arr = [Q(xi) for xi in x]
 
 #print(np.where(np.array(Q_arr) > Q_real))
@@ -66,13 +66,15 @@ print(x[np.where(np.array(Q_arr) > Q_real)[0][0]])
 print(Q(x[np.where(np.array(Q_arr) > Q_real)[0][0]-1]))
 #print(Q_arr[37])
 #print(Q_arr[38])
-plt.plot(x, Q_arr, label="old")
+plt.figure(figsize=(6, 8))
+plt.title(r"Intersection between $Q(x_s)$ and $G_{sc}/4$")
+plt.plot(x, Q_arr, label=r"$Q(x_s)$")
 # plt.plot(x, [Q_new(xi) for xi in x], label="Q(x_s)")
-plt.axhline(y=Q_real, color='r', linestyle='--', label="340 W/m^2")
-plt.axvline(x=x[np.where(np.array(Q_arr) > Q_real)[0][0]], color='g', linestyle='--', label=f"x_s = 0.95")
+plt.axhline(y=Q_real, color='r', linestyle='--', label=r"340 W/m$^2$")
+plt.axvline(x=x[np.where(np.array(Q_arr) > Q_real)[0][0]], color='g', linestyle='--', label=rf"$x_s = 0.44$")
 plt.legend()
-plt.xlabel("x_s")
-plt.ylabel("Q (W/m^2)")
-# plt.savefig("Q_plot.png", dpi=300)
+plt.xlabel(r"$x_s$")
+plt.ylabel(r"Q (W/m$^2$)")
+plt.savefig("Q_plot.png", dpi=300)
 plt.show()
 
