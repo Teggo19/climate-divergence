@@ -94,7 +94,7 @@ def S(x, S_2=-0.477):
 
 def compute_temperature(N, x_s):
     N_south = int(N * x_s)
-    N_north = (N - N_south)*10
+    N_north = N - N_south
     x_south, dx_south = np.linspace(0, x_s, N_south+1, retstep=True)
     x_north, dx_north = np.linspace(x_s, 1, N_north+1, retstep=True)
     D = 1e-2
@@ -117,50 +117,30 @@ def compute_temperature(N, x_s):
 
 
 def main():
-    N = 200
-    x_s = 0.41
+    N = 1000
+    x_s = 0.44
 
-    fig, ax = plt.subplots()
+    fig, (ax,ax2) = plt.subplots(1, 2)
     T_south, x_south, T_north, x_north = compute_temperature(N, x_s)
     
-    line_south, = ax.plot(x_south, T_south, label='South')
-    line_north, = ax.plot(x_north, T_north, label='North')
-    ice_line = ax.axvline(x_s, color='black', linestyle='--', label='Ice edge')
-    zero_line = ax.axhline(0, color='black', linestyle='--')
+    ax.plot(x_south, T_south, label='South')
+    ax.plot(x_north, T_north, label='North')
+    ax.axvline(x_s, color='black', linestyle='--', label='Ice edge')
+    ax.axhline(0, color='black', linestyle='--')
 
-    ax.plot(x_south, [T_analytic(x) for x in x_south])
-    ax.plot(x_north, [T_analytic(x) for x in x_north])
+    ax2.plot(x_south, T_south - np.array([T_analytic(x) for x in x_south]))
+    ax2.plot(x_north, T_north - np.array([T_analytic(x) for x in x_north]))
     
-    # ax.set_xlabel('$\\varphi/\\text{rad}$')
+    ax.set_title('Temperature profile')
+    ax2.set_title('Difference from analytical solution')
     ax.set_xlabel('$x$')
+    ax2.set_xlabel('$x$')
     ax.set_ylabel('$T/C^{\circ}$')
-    # ax.set_ylim(-60, 20)
     ax.legend()
 
+    plt.tight_layout()
+
     plt.show()
-
-    # frames = 75
-    # x_low = 0.9
-    # x_high = 0.999
-
-    # def update(frame):
-    #     # x_s_frame = x_s + (1+np.cos(2*np.pi*frame/frames))**2 * (1-2*x_s)
-    #     phi_s_frame = np.asin(x_low) + (np.asin(x_high) - np.asin(x_low)) * (1 - abs(frame/frames - 1)**2)
-    #     x_s_frame = np.sin(phi_s_frame)
-
-    #     T_south, x_south, T_north, x_north = compute_temperature(N, x_s_frame)
-        
-    #     line_south.set_data(x_south, T_south)
-    #     line_north.set_data(x_north, T_north)
-    #     ice_line.set_xdata(x_north[[0, 0]])
-
-    #     return line_south, line_north, ice_line
-
-    # ani = anim.FuncAnimation(fig, update, frames=2*frames, blit=True, repeat=True, interval=100)
-    # # writer = anim.PillowWriter(fps=30,
-    # #                            bitrate=1800)
-    # # ani.save('animation_70deg.gif', writer=writer)
-    # plt.show()
 
 if __name__ == '__main__':
     main()
