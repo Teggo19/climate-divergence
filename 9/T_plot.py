@@ -15,7 +15,7 @@ a_u = a_l
 
 T_s = -20
 
-x_s = 0.95
+x_s = 0.33
 
 beta_0 = 1
 beta_1 = B/(2*D)
@@ -76,5 +76,12 @@ T_p_arr = [T_p(xi) for xi in x]
 plt.plot(x, T_arr, label="T(x)")
 #plt.plot(x, y_arr, label="y(x)")
 #plt.plot(x, T_p_arr, label="T_p(x)")
+plt.axhline(y=T_s, color='r', linestyle='--', label=rf"T_s = {T_s}$\degree$C")
+plt.axvline(x=x_s, color='g', linestyle='--', label=f"x_s = {x_s}")
+
+plt.xlabel("x")
+plt.ylabel(r"T ($\degree$C)")
 plt.legend()
+
+# plt.savefig("T_plot_analytic.png", dpi=300)
 plt.show()
